@@ -1,5 +1,6 @@
 ﻿using MySql.Data.MySqlClient;
 using stepic.Models;
+using System.Data;
 
 namespace stepic.Services;
 
@@ -47,34 +48,83 @@ public class UsersService
     /// </summary>
     /// <param name="fullName">Полное имя пользователя</param>
     /// <returns>User</returns>
-    public static User Get(string fullName)
+    public static User? Get(string fullName)
+    {
+        using var connection = new MySqlConnection(Constant.ConnectionString);
+        connection.Open();
+        var query = @"SELECT * FROM users
+                   WHERE full_name = @FullName AND is_active = 1;";
+        using var command = new MySqlCommand(query, connection);
+        command.Parameters.AddWithValue("@FullName", fullName);
+        using var reader = command.ExecuteReader();
+        return reader.Read()
+            ? new User
+            {
+                FullName = reader.GetString("full_name"),
+                Details = reader.IsDBNull("details") ? null : reader.GetString("details"),
+                JoinDate = reader.GetDateTime("join_date"),
+                Avatar = reader.IsDBNull("avatar") ? null : reader.GetString("avatar"),
+                IsActive = reader.GetBoolean("is_active"),
+                Knowledge = reader.GetInt32("knowledge"),
+                Reputation = reader.GetInt32("reputation"),
+                FollowersCount = reader.GetInt32("followers_count")
+            }
+            : null;
+    }
+
+    /// <summary>
+    /// Получение общего количества пользователей
+    /// </summary>
+    public static int GetTotalCount()
     {
         using var connection = new MySqlConnection(Constant.ConnectionString);
 
         connection.Open();
 
-        var sqlQuery = @"
-                SELECT * 
-                FROM users 
-                WHERE full_name = @FullName AND is_active = true;";
+        var query = @"
+                     SELECT COUNT(id) FROM users;";
 
-        using var command = new MySqlCommand(sqlQuery, connection);
+        using var command = new MySqlCommand(query, connection);
 
-        command.Parameters.AddWithValue("@FullName", fullName);
+        var result = command.ExecuteScalar();
 
-        using var reader = command.ExecuteReader();
+        return result != null ? Convert.ToInt32(result) : 0;
+    }
 
-        if (reader.Read())
+    /// <summary>
+    /// Форматирование показателей пользователя
+    /// </summary>
+    /// <param name="number">Число для форматирования</param>
+    /// <returns>Отформатированное число</returns>
+    public static string FormatUserMetrics(int number)
+    {
+        using var connection = new MySqlConnection(Constant.ConnectionString);
+        connection.Open();
+
+        var functionName = "format_number";
+
+        using var command = new MySqlCommand(functionName, connection);
+
+        command.CommandType = CommandType.StoredProcedure;
+
+        var numberParam = new MySqlParameter("number", number)
         {
-            return new User
-            {
-                FullName = reader.GetString(0),
-                Details = reader.IsDBNull(1) ? null : reader.GetString(1),
-                JoinDate = reader.GetDateTime(2),
-                Avatar = reader.IsDBNull(3) ? null : reader.GetString(3),
-                IsActive = reader.GetBoolean(4)
-            };
-        }
-        return null;
+            Direction = ParameterDirection.Input
+        };
+
+        var resultParam = new MySqlParameter()
+        {
+            Direction = ParameterDirection.ReturnValue
+        };
+
+        command.Parameters.Add(numberParam);
+        command.Parameters.Add(resultParam);
+
+        command.ExecuteNonQuery();
+
+        var result = resultParam.Value.ToString();
+
+        return result == null ? string.Empty : result;
     }
 }
+
