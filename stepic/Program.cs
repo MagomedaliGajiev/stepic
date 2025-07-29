@@ -1,5 +1,6 @@
 ﻿using stepic.Models;
 using stepic.Services;
+using System.Data;
 
 namespace stepic;
 
@@ -295,6 +296,78 @@ ______________________________________________");
                 count++;
             }
         }
+        Console.ResetColor();
+    }
+
+    /// <summary>
+    /// Отображение рейтинга пользователей.
+    /// </summary>
+    public static void DisplayUserRating()
+    {
+        Console.ForegroundColor = ConsoleColor.Cyan;
+        Console.WriteLine("\n* Рейтинг пользователей *\n\n" +
+                          "Выберите действие (введите число и нажмите Enter):\n" +
+                          "1. Назад\n");
+
+        var dataSet = UsersService.GetUserRating();
+
+        if (dataSet.Tables.Count == 0 || dataSet.Tables[0].Rows.Count == 0)
+        {
+            Console.WriteLine("На платформе еще нет пользователей");
+            return;
+        }
+
+        var indent = 22;
+        var separatorCount = 56;
+
+        Console.WriteLine(new string('-', separatorCount));
+        Console.WriteLine($"{"Пользователь".PadRight(indent)} " +
+                          $"{"Знания".PadRight(indent)} " +
+                          $"{"Репутация".PadRight(indent)}");
+        Console.WriteLine(new string('-', separatorCount));
+
+        foreach (DataRow row in dataSet.Tables[0].Rows)
+        {
+            Console.WriteLine($"{row["full_name"]?.ToString()?.PadRight(indent)} " +
+                              $"{row["knowledge"]?.ToString()?.PadRight(indent)} " +
+                              $"{row["reputation"]?.ToString()?.PadRight(indent)}");
+        }
+
+        Console.WriteLine(new string('-', separatorCount));
+        Console.ResetColor();
+    }
+
+    public void Display()
+    {
+        var certificates = CertificatesService.Get(_user.FullName);
+        Console.ForegroundColor = ConsoleColor.Yellow;
+        Console.WriteLine("\n* Сертификаты пользователя " + _user.FullName + " *\n\n" +
+                          "Выберите действие (введите число и нажмите Enter):\n" +
+                          "1. Назад\n");
+
+        if (certificates.Tables.Count == 0 || certificates.Tables[0].Rows.Count == 0)
+        {
+            Console.WriteLine("У пользователя еще нет сертификатов");
+            return;
+        }
+
+        var indent = 25;
+        var separatorCount = 60;
+
+        Console.WriteLine(new string('-', separatorCount));
+        Console.WriteLine($"{"Курс".PadRight(indent)} " +
+                          $"{"Дата выдачи".PadRight(indent)} " +
+                          $"{"Оценка".PadRight(indent)}");
+        Console.WriteLine(new string('-', separatorCount));
+
+        foreach (DataRow row in certificates.Tables[0].Rows)
+        {
+            Console.WriteLine($"{row["title"]?.ToString()?.PadRight(indent)} " +
+                              $"{row["issue_date"]?.ToString()?.PadRight(indent)} " +
+                              $"{row["grade"]?.ToString()?.PadRight(indent)}");
+        }
+
+        Console.WriteLine(new string('-', separatorCount));
         Console.ResetColor();
     }
 }

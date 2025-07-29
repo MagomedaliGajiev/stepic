@@ -126,5 +126,31 @@ public class UsersService
 
         return result == null ? string.Empty : result;
     }
+
+    /// <summary>
+    /// Рейтинг пользователей
+    /// </summary>
+    /// <returns>DataSet</returns>
+    public static DataSet GetUserRating()
+    {
+        using var connection = new MySqlConnection(Constant.ConnectionString);
+        connection.Open();
+
+        var query = @"
+        SELECT full_name, knowledge, reputation 
+        FROM users 
+        WHERE is_active = 1 
+        ORDER BY knowledge DESC 
+        LIMIT 10;
+    ";
+
+        using var command = new MySqlCommand(query, connection);
+        using var adapter = new MySqlDataAdapter(command);
+
+        var dataSet = new DataSet();
+        adapter.Fill(dataSet); // Убрали второй параметр
+
+        return dataSet;
+    }
 }
 
