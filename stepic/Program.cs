@@ -6,6 +6,7 @@ namespace stepic;
 
 public class Program
 {
+    private readonly User _user; 
     /// <summary>
     /// Обработка начального меню
     /// </summary>
