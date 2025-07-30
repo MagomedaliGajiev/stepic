@@ -13,7 +13,7 @@ namespace stepic.Services
             using var connection = new MySqlConnection(Constant.ConnectionString);
             connection.Open();
 
-            var query = "SELECT COUNT(id) FROM courses;";
+            var query = "SELECT COUNT(id) FROM stepik.courses;";
 
             using var command = new MySqlCommand(query, connection);
 
@@ -36,9 +36,9 @@ namespace stepic.Services
 
             var query = @"
                         SELECT c.title, c.summary, c.photo 
-                        FROM courses c
-                        JOIN user_courses uc ON c.id = uc.course_id
-                        JOIN users u ON uc.user_id = u.id
+                        FROM stepik.courses c
+                        JOIN stepik.user_courses uc ON c.id = uc.course_id
+                        JOIN stepik.users u ON uc.user_id = u.id
                         WHERE u.full_name = @fullName AND u.is_active = true
                         ORDER BY uc.last_viewed DESC";
 

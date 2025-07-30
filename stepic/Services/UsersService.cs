@@ -21,7 +21,7 @@ public class UsersService
                 connection.Open();
 
                 var sqlQuery = @"
-                    INSERT INTO users (full_name, details, join_date, avatar, is_active)
+                    INSERT INTO stepik.users (full_name, details, join_date, avatar, is_active)
                     VALUES (@FullName, @Details, @JoinDate, @Avatar, @IsActive);";
 
                 using (var command = new MySqlCommand(sqlQuery, connection))
@@ -52,7 +52,7 @@ public class UsersService
     {
         using var connection = new MySqlConnection(Constant.ConnectionString);
         connection.Open();
-        var query = @"SELECT * FROM users
+        var query = @"SELECT * FROM stepik.users
                    WHERE full_name = @FullName AND is_active = 1;";
         using var command = new MySqlCommand(query, connection);
         command.Parameters.AddWithValue("@FullName", fullName);
@@ -82,7 +82,7 @@ public class UsersService
         connection.Open();
 
         var query = @"
-                     SELECT COUNT(id) FROM users;";
+                     SELECT COUNT(id) FROM stepik.users;";
 
         using var command = new MySqlCommand(query, connection);
 
@@ -138,7 +138,7 @@ public class UsersService
 
         var query = @"
         SELECT full_name, knowledge, reputation 
-        FROM users 
+        FROM stepik.users 
         WHERE is_active = 1 
         ORDER BY knowledge DESC 
         LIMIT 10;
