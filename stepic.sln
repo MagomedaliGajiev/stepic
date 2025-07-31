@@ -1,9 +1,11 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
-VisualStudioVersion = 17.14.36310.24 d17.14
+VisualStudioVersion = 17.14.36310.24
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "stepic", "stepic\stepic.csproj", "{8558AF88-6AAC-43FD-9EE7-A722D7F5E33F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "stepic_webApi", "stepic_webApi\stepic_webApi.csproj", "{88E167E2-A74D-406C-95CF-A277C69DA3F6}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{8558AF88-6AAC-43FD-9EE7-A722D7F5E33F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8558AF88-6AAC-43FD-9EE7-A722D7F5E33F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8558AF88-6AAC-43FD-9EE7-A722D7F5E33F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{88E167E2-A74D-406C-95CF-A277C69DA3F6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{88E167E2-A74D-406C-95CF-A277C69DA3F6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{88E167E2-A74D-406C-95CF-A277C69DA3F6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{88E167E2-A74D-406C-95CF-A277C69DA3F6}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

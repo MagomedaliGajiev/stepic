@@ -10,7 +10,7 @@ namespace stepic.Services
         /// </summary>
         /// <param name="id">id курса</param>
         /// <returns>Список комментариев</returns>
-        public static List<Comment> Get(int id)
+        public List<Comment> Get(int id)
         {
             var comments = new List<Comment>();
 
@@ -19,11 +19,11 @@ namespace stepic.Services
 
             var query = @"
                           SELECT c.id, c.text, c.time
-                          FROM comments AS c
-                          JOIN steps AS s ON c.step_id = s.id
-                          JOIN unit_lessons AS ul ON s.lesson_id = ul.lesson_id
-                          JOIN units AS u ON ul.unit_id = u.id
-                          JOIN courses AS cr ON u.course_id = cr.id
+                          FROM stepik.comments AS c
+                          JOIN stepik.steps AS s ON c.step_id = s.id
+                          JOIN stepik.unit_lessons AS ul ON s.lesson_id = ul.lesson_id
+                          JOIN stepik.units AS u ON ul.unit_id = u.id
+                          JOIN stepik.courses AS cr ON u.course_id = cr.id
                           WHERE reply_comment_id IS NULL AND cr.id = @id
                           ORDER BY c.time DESC;";
 
@@ -51,7 +51,7 @@ namespace stepic.Services
         /// </summary>
         /// <param name="id">id комментария</param>
         /// <returns>Удалось ли удалить комментарий</returns>
-        public static bool Delete(int id)
+        public bool Delete(int id)
         {
             using var connection = new MySqlConnection(Constant.ConnectionString);
             connection.Open();
