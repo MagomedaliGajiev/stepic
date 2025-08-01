@@ -6,11 +6,12 @@ using System.Data;
 public record class CommentsMenu(int _courseId, User _user, WrongChoice _wrongChoice)
 {
     private readonly CommentsService _commentService = new CommentsService();
+    private readonly CoursesService _coursesService = new CoursesService();
 
     public void Display()
     {
         List<Comment> comments = _commentService.Get(_courseId);
-        List<Course> courses = CoursesService.Get(_user.FullName);
+        List<Course> courses = _coursesService.Get(_user.FullName);
         var currentCourse = courses.FirstOrDefault(x => x.Id == _courseId);
         Console.ForegroundColor = ConsoleColor.Gray;
         Console.WriteLine("\n* Комментарии к курсу " + currentCourse?.Title + " *\n\n" +

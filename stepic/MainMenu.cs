@@ -6,10 +6,11 @@ namespace stepic
     public class MainMenu
     {
         private readonly WrongChoice _wrongChoice = new WrongChoice();
+        private readonly CoursesService _coursesService = new CoursesService();
 
         public void Display()
         {
-            var totalCoursesCount = CoursesService.GetTotalCount();
+            var totalCoursesCount = _coursesService.GetTotalCount();
             var totalUsersCount = UsersService.GetTotalCount();
             Console.ForegroundColor = ConsoleColor.DarkBlue;
             Console.WriteLine("************************************************\n" +
