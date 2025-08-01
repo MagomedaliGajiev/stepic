@@ -1,4 +1,5 @@
-﻿using stepic.Models;
+﻿using Org.BouncyCastle.Security;
+using stepic.Models;
 using stepic.Services;
 using System.Data;
 
@@ -6,9 +7,10 @@ namespace stepic;
 
 public record class CertificateMenu(User _user, WrongChoice _wrongChoice)
 {
+    private readonly CertificatesService _certificatesService = new CertificatesService();
     public void Display()
     {
-        var certificates = CertificatesService.Get(_user.FullName);
+        var certificates = _certificatesService.Get(_user.FullName);
         Console.ForegroundColor = ConsoleColor.Yellow;
         Console.WriteLine("\n* Сертификаты пользователя " + _user.FullName + " *\n\n" +
                           "Выберите действие (введите число и нажмите Enter):\n" +

@@ -24,7 +24,7 @@ namespace stepic.Services
                             ORDER BY certificates.issue_date DESC;";
 
             using var command = new MySqlCommand(query, connection);
-            var fullNameParam = new MySqlParameter(fullName, fullName);
+            var fullNameParam = new MySqlParameter("@fullName", fullName);
             command.Parameters.Add(fullNameParam);
             using var adapter = new MySqlDataAdapter(command);
 
