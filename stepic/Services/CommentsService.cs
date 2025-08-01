@@ -19,11 +19,11 @@ namespace stepic.Services
 
             var query = @"
                           SELECT c.id, c.text, c.time
-                          FROM stepik.comments AS c
-                          JOIN stepik.steps AS s ON c.step_id = s.id
-                          JOIN stepik.unit_lessons AS ul ON s.lesson_id = ul.lesson_id
-                          JOIN stepik.units AS u ON ul.unit_id = u.id
-                          JOIN stepik.courses AS cr ON u.course_id = cr.id
+                          FROM comments AS c
+                          JOIN steps AS s ON c.step_id = s.id
+                          JOIN unit_lessons AS ul ON s.lesson_id = ul.lesson_id
+                          JOIN units AS u ON ul.unit_id = u.id
+                          JOIN courses AS cr ON u.course_id = cr.id
                           WHERE reply_comment_id IS NULL AND cr.id = @id
                           ORDER BY c.time DESC;";
 
