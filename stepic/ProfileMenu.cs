@@ -5,6 +5,7 @@ namespace stepic
 {
     public record class ProfileMenu(User _user, WrongChoice _wrongChoice)
     {
+        private readonly UsersService _usersService = new UsersService();
         public void Display()
         {
             Console.ForegroundColor = ConsoleColor.Magenta;
@@ -15,9 +16,9 @@ namespace stepic
                               "Дата регистрации: " + _user.JoinDate + "\n" +
                               "Описание профиля: " + (_user.Details ?? "Не заполнено") + "\n" +
                               "Фото профиля: " + (_user.Avatar ?? "Не заполнено") + "\n" +
-                              UsersService.FormatUserMetrics(_user.FollowersCount) + " подписчиков\n" +
-                              UsersService.FormatUserMetrics(_user.Reputation) + " репутация\n" +
-                              UsersService.FormatUserMetrics(_user.Knowledge) + " знания");
+                              _usersService.FormatUserMetrics(_user.FollowersCount) + " подписчиков\n" +
+                              _usersService.FormatUserMetrics(_user.Reputation) + " репутация\n" +
+                              _usersService.FormatUserMetrics(_user.Knowledge) + " знания");
             Console.ResetColor();
         }
 

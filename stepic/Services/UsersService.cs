@@ -12,7 +12,7 @@ public class UsersService
     /// </summary>
     /// <param name="user">Новый пользователь</param>
     /// <returns>Удалось ли добавить пользователя</returns>
-    public static bool Add(User user)
+    public bool Add(User user)
     {
         try
         {
@@ -48,7 +48,7 @@ public class UsersService
     /// </summary>
     /// <param name="fullName">Полное имя пользователя</param>
     /// <returns>User</returns>
-    public static User? Get(string fullName)
+    public User? Get(string fullName)
     {
         using var connection = new MySqlConnection(Constant.ConnectionString);
         connection.Open();
@@ -75,7 +75,7 @@ public class UsersService
     /// <summary>
     /// Получение общего количества пользователей
     /// </summary>
-    public static int GetTotalCount()
+    public int GetTotalCount()
     {
         using var connection = new MySqlConnection(Constant.ConnectionString);
 
@@ -96,7 +96,7 @@ public class UsersService
     /// </summary>
     /// <param name="number">Число для форматирования</param>
     /// <returns>Отформатированное число</returns>
-    public static string FormatUserMetrics(int number)
+    public string FormatUserMetrics(int number)
     {
         using var connection = new MySqlConnection(Constant.ConnectionString);
         connection.Open();
@@ -107,7 +107,7 @@ public class UsersService
 
         command.CommandType = CommandType.StoredProcedure;
 
-        var numberParam = new MySqlParameter("number", number)
+        var numberParam = new MySqlParameter("@number", number)
         {
             Direction = ParameterDirection.Input
         };
@@ -131,7 +131,7 @@ public class UsersService
     /// Рейтинг пользователей
     /// </summary>
     /// <returns>DataSet</returns>
-    public static DataSet GetUserRating()
+    public DataSet GetUserRating()
     {
         using var connection = new MySqlConnection(Constant.ConnectionString);
         connection.Open();

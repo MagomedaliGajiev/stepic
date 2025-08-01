@@ -5,6 +5,7 @@ namespace stepic;
 
 public static class UsersProcessing
 {
+    private static readonly UsersService _usersService = new UsersService();
     public static User PerformRegistration()
     {
         var userName = "";
@@ -19,7 +20,7 @@ public static class UsersProcessing
             FullName = userName
         };
 
-        bool isAdditionSuccessful = UsersService.Add(newUser);
+        bool isAdditionSuccessful = _usersService.Add(newUser);
 
         if (isAdditionSuccessful)
         {
@@ -46,7 +47,7 @@ public static class UsersProcessing
             userName = Console.ReadLine();
         }
 
-        User? user = UsersService.Get(userName);
+        User? user = _usersService.Get(userName);
 
         if (user != null)
         {

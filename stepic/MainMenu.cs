@@ -7,11 +7,12 @@ namespace stepic
     {
         private readonly WrongChoice _wrongChoice = new WrongChoice();
         private readonly CoursesService _coursesService = new CoursesService();
+        private readonly UsersService _usersService = new UsersService();
 
         public void Display()
         {
             var totalCoursesCount = _coursesService.GetTotalCount();
-            var totalUsersCount = UsersService.GetTotalCount();
+            var totalUsersCount = _usersService.GetTotalCount();
             Console.ForegroundColor = ConsoleColor.DarkBlue;
             Console.WriteLine("************************************************\n" +
                               "* Добро пожаловать на онлайн платформу Stepik! *\n" +
