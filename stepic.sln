@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "stepic", "stepic\stepic.csp
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "stepic_webApi", "stepic_webApi\stepic_webApi.csproj", "{88E167E2-A74D-406C-95CF-A277C69DA3F6}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "stepik_test", "stepik_test\stepik_test.csproj", "{C1B76D59-48A4-4F47-A056-AE1E745AB982}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{88E167E2-A74D-406C-95CF-A277C69DA3F6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{88E167E2-A74D-406C-95CF-A277C69DA3F6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{88E167E2-A74D-406C-95CF-A277C69DA3F6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C1B76D59-48A4-4F47-A056-AE1E745AB982}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C1B76D59-48A4-4F47-A056-AE1E745AB982}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C1B76D59-48A4-4F47-A056-AE1E745AB982}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C1B76D59-48A4-4F47-A056-AE1E745AB982}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

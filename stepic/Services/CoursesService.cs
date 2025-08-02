@@ -35,7 +35,7 @@ namespace stepic.Services
             connection.Open();
 
             var query = @"
-                        SELECT c.title, c.summary, c.photo 
+                        SELECT c.id, c.title, c.summary, c.photo 
                         FROM courses c
                         JOIN user_courses uc ON c.id = uc.course_id
                         JOIN users u ON uc.user_id = u.id
@@ -44,7 +44,7 @@ namespace stepic.Services
 
             using var command = new MySqlCommand(query, connection);
 
-            var fullNameParam = new MySqlParameter(@fullName, fullName);
+            var fullNameParam = new MySqlParameter("@fullName", fullName);
             command.Parameters.Add(fullNameParam);
 
             using var reader = command.ExecuteReader();
@@ -53,8 +53,9 @@ namespace stepic.Services
             {
                 courses.Add(new Course()
                 {
+                    Id = reader.GetInt32("id"),
                     Title = reader.GetString("title"),
-                    Summary = reader.IsDBNull(reader.GetOrdinal("summary")) ? null : reader.GetString("suumary"),
+                    Summary = reader.IsDBNull(reader.GetOrdinal("summary")) ? null : reader.GetString("summary"),
                     Photo = reader.IsDBNull(reader.GetOrdinal("photo")) ? null : reader.GetString("photo"),
                 });
             }
