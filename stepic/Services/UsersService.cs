@@ -166,7 +166,7 @@ public class UsersService
         var query = @"CALL get_user_social_info(@user_name);";
 
         using var command = new MySqlCommand(query, connection);
-        var userNameParam = new MySqlParameter("@username", userName);
+        var userNameParam = new MySqlParameter("@user_name", userName);
         command.Parameters.Add(userNameParam);
         using var adapter = new MySqlDataAdapter(command);
 
