@@ -1,7 +1,7 @@
 ﻿using MySql.Data.MySqlClient;
 using stepic.Models;
 
-namespace stepic.Services
+namespace stepic.ADO.NET
 {
     public class CommentsService
     {

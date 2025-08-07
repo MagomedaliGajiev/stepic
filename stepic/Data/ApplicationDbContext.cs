@@ -2,7 +2,7 @@
 using Microsoft.Extensions.Configuration;
 using stepic.Models;
 
-namespace stepic.EF
+namespace stepic.Data
 {
     public class ApplicationDbContext : DbContext
     {

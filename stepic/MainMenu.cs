@@ -1,5 +1,5 @@
-﻿using stepic.Models;
-using stepic.Services;
+﻿using stepic.ADO.NET;
+using stepic.Models;
 
 namespace stepic
 {
@@ -38,7 +38,7 @@ namespace stepic
                 {
                     case "1":
                         User user = UsersProcessing.PerformLogin();
-                        if (!string.IsNullOrEmpty(user?.FullName))
+                        if (!string.IsNullOrEmpty(user?.full_name))
                         {
                             HandleUserMenu(user);
                         }
@@ -46,7 +46,7 @@ namespace stepic
                         break;
                     case "2":
                         User newUser = UsersProcessing.PerformRegistration();
-                        if (!string.IsNullOrEmpty(newUser?.FullName))
+                        if (!string.IsNullOrEmpty(newUser?.full_name))
                         {
                             HandleUserMenu(newUser);
                         }

@@ -1,5 +1,5 @@
-﻿using stepic.Models;
-using stepic.Services;
+﻿using stepic.ADO.NET;
+using stepic.Models;
 using System.Data;
 
 namespace stepic
@@ -9,9 +9,9 @@ namespace stepic
         private readonly CoursesService _coursesService = new CoursesService();
         public void Display()
         {
-            List<Course> courses = _coursesService.Get(_user.FullName);
+            List<Course> courses = _coursesService.Get(_user.full_name);
             Console.ForegroundColor = ConsoleColor.Yellow;
-            Console.WriteLine("\n* Список курсов " + _user.FullName + " *\n\n" +
+            Console.WriteLine("\n* Список курсов " + _user.full_name + " *\n\n" +
                               "Выберите действие (введите число и нажмите Enter):\n" +
                               "0. Назад");
 
@@ -39,7 +39,7 @@ namespace stepic
         {
             while (true)
             {
-                List<Course> courses = _coursesService.Get(_user.FullName);
+                List<Course> courses = _coursesService.Get(_user.full_name);
                 var coursesIds = courses.Select(x => x.Id.ToString()).ToList();
                 string? choice = Console.ReadLine();
 

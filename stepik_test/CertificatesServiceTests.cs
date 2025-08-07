@@ -1,5 +1,5 @@
-﻿using stepic.Models;
-using stepic.Services;
+﻿using stepic.ADO.NET;
+using stepic.Models;
 using System.Data;
 
 namespace stepik_test

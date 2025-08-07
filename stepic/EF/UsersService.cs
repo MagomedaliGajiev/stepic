@@ -1,4 +1,5 @@
-﻿using stepic.Models;
+﻿using stepic.Data;
+using stepic.Models;
 
 namespace stepic.EF
 {
@@ -14,7 +15,7 @@ namespace stepic.EF
             using ApplicationDbContext dbContext = new();
             
             return dbContext.Users
-                .FirstOrDefault(u => u.FullName == fullName && u.IsActive);
+                .FirstOrDefault(u => u.full_name == fullName && u.is_active);
         }
 
         /// <summary>

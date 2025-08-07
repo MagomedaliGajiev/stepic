@@ -1,5 +1,5 @@
-﻿using stepic.Models;
-using stepic.Services;
+﻿using stepic.ADO.NET;
+using stepic.Models;
 using System.Data;
 
 namespace stepik_test
@@ -15,14 +15,14 @@ namespace stepik_test
             var randomName = Guid.NewGuid().ToString();
             var newUser = new User
             {
-                FullName = randomName,
-                Details = "Описание нового пользователя",
-                JoinDate = DateTime.Now,
-                Avatar = "https://example.com/new_avatar.jpg",
-                IsActive = true,
-                Knowledge = 0,
-                Reputation = 0,
-                FollowersCount = 0
+                full_name = randomName,
+                details = "Описание нового пользователя",
+                join_date = DateTime.Now,
+                avatar = "https://example.com/new_avatar.jpg",
+                is_active = true,
+                knowledge = 0,
+                reputation = 0,
+                followers_count = 0
             };
 
             // Act
@@ -32,14 +32,14 @@ namespace stepik_test
             Assert.True(result);
             var addedUser = _usersService.Get(randomName);
             Assert.NotNull(addedUser);
-            Assert.Equal(newUser.FullName, addedUser.FullName);
-            Assert.Equal(newUser.Details, addedUser.Details);
-            Assert.Equal(newUser.JoinDate.Date, addedUser.JoinDate);
-            Assert.Equal(newUser.Avatar, addedUser.Avatar);
-            Assert.Equal(newUser.IsActive, addedUser.IsActive);
-            Assert.Equal(newUser.Knowledge, addedUser.Knowledge);
-            Assert.Equal(newUser.Reputation, addedUser.Reputation);
-            Assert.Equal(newUser.FollowersCount, addedUser.FollowersCount);
+            Assert.Equal(newUser.full_name, addedUser.full_name);
+            Assert.Equal(newUser.details, addedUser.details);
+            Assert.Equal(newUser.join_date.Date, addedUser.join_date);
+            Assert.Equal(newUser.avatar, addedUser.avatar);
+            Assert.Equal(newUser.is_active, addedUser.is_active);
+            Assert.Equal(newUser.knowledge, addedUser.knowledge);
+            Assert.Equal(newUser.reputation, addedUser.reputation);
+            Assert.Equal(newUser.followers_count, addedUser.followers_count);
         }
 
         [Fact]
