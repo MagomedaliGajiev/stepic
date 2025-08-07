@@ -1,4 +1,4 @@
-using stepic.ADO.NET;
+using stepic.Services.ADO.NET;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers();

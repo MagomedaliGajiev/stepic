@@ -1,7 +1,7 @@
 ﻿using MySql.Data.MySqlClient;
 using System.Data;
 
-namespace stepic.ADO.NET
+namespace stepic.Services.ADO.NET
 {
     public class CertificatesService
     {

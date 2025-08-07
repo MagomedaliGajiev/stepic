@@ -1,5 +1,5 @@
-﻿using stepic.ADO.NET;
-using stepic.Models;
+﻿using stepic.Models;
+using stepic.Services.ADO.NET;
 
 namespace stepic;
 

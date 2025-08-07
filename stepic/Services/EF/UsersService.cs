@@ -1,7 +1,7 @@
 ﻿using stepic.Data;
 using stepic.Models;
 
-namespace stepic.EF
+namespace stepic.Services.EF
 {
     public class UsersService
     {

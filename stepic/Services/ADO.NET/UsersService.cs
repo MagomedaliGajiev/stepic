@@ -2,7 +2,7 @@
 using stepic.Models;
 using System.Data;
 
-namespace stepic.ADO.NET;
+namespace stepic.Services.ADO.NET;
 
 public class UsersService
 {

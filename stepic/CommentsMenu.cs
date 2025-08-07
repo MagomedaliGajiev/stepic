@@ -1,6 +1,6 @@
 ﻿using stepic;
-using stepic.ADO.NET;
 using stepic.Models;
+using stepic.Services.ADO.NET;
 using System.Data;
 
 public record class CommentsMenu(int _courseId, User _user, WrongChoice _wrongChoice)
