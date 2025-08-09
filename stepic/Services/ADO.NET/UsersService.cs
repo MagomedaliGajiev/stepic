@@ -4,9 +4,8 @@ using System.Data;
 
 namespace stepic.Services.ADO.NET;
 
-public class UsersService
+public class UsersService : IUsersService
 {
-
     /// <summary>
     /// Добавление нового пользователя в таблицу users
     /// </summary>
@@ -16,26 +15,18 @@ public class UsersService
     {
         try
         {
-            using (var connection = new MySqlConnection(Constant.ConnectionString))
-            {
-                connection.Open();
-
-                var sqlQuery = @"
-                    INSERT INTO users (full_name, details, join_date, avatar, is_active)
-                    VALUES (@FullName, @Details, @JoinDate, @Avatar, @IsActive);";
-
-                using (var command = new MySqlCommand(sqlQuery, connection))
-                {
-                    command.Parameters.AddWithValue("@FullName", user.full_name);
-                    command.Parameters.AddWithValue("@Details", user.details);
-                    command.Parameters.AddWithValue("@JoinDate", user.join_date);
-                    command.Parameters.AddWithValue("@Avatar", user.avatar);
-                    command.Parameters.AddWithValue("@IsActive", user.is_active);
-
-                    var execute = command.ExecuteNonQuery();
-                }
-            }
-            return true;
+            using var connection = new MySqlConnection(Constant.ConnectionString);
+            connection.Open();
+            var query = @"INSERT INTO users (full_name, details, join_date, avatar, is_active)
+                          VALUES (@FullName, @Details, @JoinDate, @Avatar, @IsActive)";
+            using var command = new MySqlCommand(query, connection);
+            command.Parameters.AddWithValue("@FullName", user.full_name);
+            command.Parameters.AddWithValue("@Details", user.details);
+            command.Parameters.AddWithValue("@JoinDate", user.join_date);
+            command.Parameters.AddWithValue("@Avatar", user.avatar);
+            command.Parameters.AddWithValue("@IsActive", user.is_active);
+            var rowsAffected = command.ExecuteNonQuery();
+            return rowsAffected == 1;
         }
         catch
         {
@@ -53,7 +44,7 @@ public class UsersService
         using var connection = new MySqlConnection(Constant.ConnectionString);
         connection.Open();
         var query = @"SELECT * FROM users
-                   WHERE full_name = @FullName AND is_active = 1;";
+                      WHERE full_name = @FullName AND is_active = 1;";
         using var command = new MySqlCommand(query, connection);
         command.Parameters.AddWithValue("@FullName", fullName);
         using var reader = command.ExecuteReader();
@@ -78,14 +69,11 @@ public class UsersService
     public int GetTotalCount()
     {
         using var connection = new MySqlConnection(Constant.ConnectionString);
-
         connection.Open();
 
-        var query = @"
-                     SELECT COUNT(id) FROM users;";
+        var query = "SELECT COUNT(*) FROM users;";
 
         using var command = new MySqlCommand(query, connection);
-
         var result = command.ExecuteScalar();
 
         return result != null ? Convert.ToInt32(result) : 0;
@@ -95,36 +83,31 @@ public class UsersService
     /// Форматирование показателей пользователя
     /// </summary>
     /// <param name="number">Число для форматирования</param>
-    /// <returns>Отформатированное число</returns>
-    public string FormatUserMetrics(int number)
+    /// <returns>Отформатированное число</returns>    
+    public string? FormatUserMetrics(int number)
     {
         using var connection = new MySqlConnection(Constant.ConnectionString);
         connection.Open();
 
-        var functionName = "format_number";
-
-        using var command = new MySqlCommand(functionName, connection);
-
+        using var command = new MySqlCommand("format_number", connection);
         command.CommandType = CommandType.StoredProcedure;
 
-        var numberParam = new MySqlParameter("@number", number)
+        var numberParam = new MySqlParameter("number", number)
         {
             Direction = ParameterDirection.Input
         };
+        command.Parameters.Add(numberParam);
 
-        var resultParam = new MySqlParameter()
+        var returnValueParam = new MySqlParameter()
         {
             Direction = ParameterDirection.ReturnValue
         };
-
-        command.Parameters.Add(numberParam);
-        command.Parameters.Add(resultParam);
+        command.Parameters.Add(returnValueParam);
 
         command.ExecuteNonQuery();
 
-        var result = resultParam.Value.ToString();
-
-        return result == null ? string.Empty : result;
+        var returnValue = returnValueParam.Value;
+        return returnValue != null ? returnValue.ToString() : string.Empty;
     }
 
     /// <summary>
@@ -135,21 +118,15 @@ public class UsersService
     {
         using var connection = new MySqlConnection(Constant.ConnectionString);
         connection.Open();
-
-        var query = @"
-        SELECT full_name, knowledge, reputation 
-        FROM users 
-        WHERE is_active = 1 
-        ORDER BY knowledge DESC 
-        LIMIT 10;
-    ";
-
+        var query = @"SELECT full_name, knowledge, reputation
+                      FROM users
+                      WHERE is_active = 1
+                      ORDER BY knowledge DESC
+                      LIMIT 10;";
         using var command = new MySqlCommand(query, connection);
-        using var adapter = new MySqlDataAdapter(command);
-
+        using var dataAdapter = new MySqlDataAdapter(command);
         var dataSet = new DataSet();
-        adapter.Fill(dataSet); // Убрали второй параметр
-
+        dataAdapter.Fill(dataSet);
         return dataSet;
     }
 
@@ -162,17 +139,12 @@ public class UsersService
     {
         using var connection = new MySqlConnection(Constant.ConnectionString);
         connection.Open();
-
-        var query = @"CALL get_user_social_info(@user_name);";
-
+        var query = "CALL get_user_social_info(@user_name);";
         using var command = new MySqlCommand(query, connection);
-        var userNameParam = new MySqlParameter("@user_name", userName);
-        command.Parameters.Add(userNameParam);
-        using var adapter = new MySqlDataAdapter(command);
-
+        command.Parameters.AddWithValue("@user_name", userName);
+        using var dataAdapter = new MySqlDataAdapter(command);
         var dataSet = new DataSet();
-        adapter.Fill(dataSet);
-
+        dataAdapter.Fill(dataSet);
         return dataSet;
     }
 }

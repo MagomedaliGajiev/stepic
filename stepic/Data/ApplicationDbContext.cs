@@ -2,26 +2,17 @@
 using Microsoft.Extensions.Configuration;
 using stepic.Models;
 
-namespace stepic.Data
+public class ApplicationDbContext : DbContext
 {
-    public class ApplicationDbContext : DbContext
+    public DbSet<User> Users { get; set; }
+
+    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
-        public ApplicationDbContext()
-        {
-            Database.EnsureDeleted();
-            Database.EnsureCreated();
-        }
-
-        public DbSet<User> Users { get; set; }
-
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        {
-            var config = new ConfigurationBuilder()
+        var config = new ConfigurationBuilder()
             .AddJsonFile("appsettings.json")
             .Build();
 
-            var connectionString = config.GetConnectionString("DefaultConnection");
-            optionsBuilder.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString));
-        }
+        var connectionString = config.GetConnectionString("DefaultConnection");
+        optionsBuilder.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString));
     }
 }

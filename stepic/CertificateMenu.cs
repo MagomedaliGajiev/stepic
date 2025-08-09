@@ -1,16 +1,13 @@
-﻿using Org.BouncyCastle.Security;
+﻿using stepic;
 using stepic.Models;
-using stepic.Services.ADO.NET;
+using stepic.Services;
 using System.Data;
 
-namespace stepic;
-
-public record class CertificateMenu(User _user, WrongChoice _wrongChoice)
+public record class CertificateMenu(User _user)
 {
-    private readonly CertificatesService _certificatesService = new CertificatesService();
     public void Display()
     {
-        var certificates = _certificatesService.Get(_user.full_name);
+        var certificates = ServiceProvider.certificatesService.Get(_user.full_name);
         Console.ForegroundColor = ConsoleColor.Yellow;
         Console.WriteLine("\n* Сертификаты пользователя " + _user.full_name + " *\n\n" +
                           "Выберите действие (введите число и нажмите Enter):\n" +
@@ -22,8 +19,8 @@ public record class CertificateMenu(User _user, WrongChoice _wrongChoice)
             return;
         }
 
-        var indent = 25;
-        var separatorCount = 60;
+        var indent = 45;
+        var separatorCount = 100;
 
         Console.WriteLine(new string('-', separatorCount));
         Console.WriteLine($"{"Курс".PadRight(indent)} " +
@@ -51,12 +48,12 @@ public record class CertificateMenu(User _user, WrongChoice _wrongChoice)
             switch (choice)
             {
                 case "1":
-                    var userMenu = new UserMenu(_user, _wrongChoice);
+                    var userMenu = new UserMenu(_user);
                     userMenu.Display();
                     userMenu.HandleUserChoice();
                     return;
                 default:
-                    _wrongChoice.PrintWrongChoiceMessage();
+                    ServiceProvider.wrongChoice.PrintWrongChoiceMessage();
                     break;
             }
         }

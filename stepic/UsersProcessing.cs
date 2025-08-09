@@ -1,12 +1,11 @@
 ﻿using stepic.Models;
-using stepic.Services.ADO.NET;
+using stepic.Services;
 
 namespace stepic;
 
-public static class UsersProcessing
+public class UsersProcessing()
 {
-    private static readonly UsersService _usersService = new UsersService();
-    public static User PerformRegistration()
+    public User PerformRegistration()
     {
         var userName = "";
         while (string.IsNullOrEmpty(userName))
@@ -20,7 +19,7 @@ public static class UsersProcessing
             full_name = userName
         };
 
-        bool isAdditionSuccessful = _usersService.Add(newUser);
+        bool isAdditionSuccessful = ServiceProvider.usersService.Add(newUser);
 
         if (isAdditionSuccessful)
         {
@@ -38,7 +37,7 @@ public static class UsersProcessing
         }
     }
 
-    public static User PerformLogin()
+    public User PerformLogin()
     {
         var userName = "";
         while (string.IsNullOrEmpty(userName))
@@ -47,7 +46,7 @@ public static class UsersProcessing
             userName = Console.ReadLine();
         }
 
-        User? user = _usersService.Get(userName);
+        User? user = ServiceProvider.usersService.Get(userName);
 
         if (user != null)
         {
