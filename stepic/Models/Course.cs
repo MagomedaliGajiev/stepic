@@ -1,10 +1,30 @@
-﻿namespace stepic.Models
+﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+
+namespace stepic.Models;
+
+[Table("courses")]
+public class Course
 {
-    public class Course
-    {
-        public int Id { get; set; }
-        public string Title { get; set; } = default!;
-        public string? Summary { get; set; }
-        public string? Photo { get; set; }
-    }
+    [Column("id")]
+    public int Id { get; set; }
+
+    [Column("title")]
+    [StringLength(50)]
+    public string Title { get; set; }
+
+    [Column("created_date")]
+    public DateTime CreatedDate { get; set; }
+
+    [Column("summary")]
+    public string? Summary { get; set; }
+
+    [Column("photo")]
+    public string? Photo { get; set; }
+
+    [Column("price")]
+    public decimal Price { get; set; }
+
+
+    public CertificateSetting CertificateSetting { get; set; }
 }
