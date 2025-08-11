@@ -27,4 +27,5 @@ public class Course
 
 
     public CertificateSetting CertificateSetting { get; set; }
+    public List<Unit> Units { get; set; }
 }
