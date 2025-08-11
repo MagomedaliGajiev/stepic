@@ -5,6 +5,8 @@ using stepic.Models;
 public class ApplicationDbContext : DbContext
 {
     public DbSet<User> Users { get; set; }
+    public DbSet<Course> Courses { get; set; }
+    public DbSet<Certificate> Certificates { get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {

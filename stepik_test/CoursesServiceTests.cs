@@ -1,7 +1,7 @@
 ﻿using stepic.Models;
 using stepic.Services.ADO.NET;
 
-namespace stepik_test
+namespace stepikTest
 {
     public class CoursesServiceTests
     {

@@ -2,7 +2,7 @@
 using stepic.Services.ADO.NET;
 using System.Data;
 
-namespace stepik_test
+namespace stepikTest
 {
     public class CertificatesServiceTests
     {

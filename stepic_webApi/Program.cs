@@ -1,3 +1,4 @@
+using stepic.Services;
 using stepic.Services.ADO.NET;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -8,7 +9,7 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddTransient<CertificatesService>();
 builder.Services.AddTransient<CommentsService>();
 builder.Services.AddTransient<CoursesService>();
-builder.Services.AddTransient<UsersService>();
+builder.Services.AddTransient<IUsersService, stepic.Services.EF.UsersService>();
 
 var app = builder.Build();
 app.UseSwagger();

@@ -1,4 +1,5 @@
-﻿using stepic.Models;
+﻿using Microsoft.EntityFrameworkCore;
+using stepic.Models;
 
 namespace stepic.Services.EF;
 
@@ -9,8 +10,16 @@ public class CoursesService : ICoursesService
         throw new NotImplementedException();
     }
 
+    /// <summary>
+    /// Получение общего количества курсов
+    /// </summary>
     public int GetTotalCount()
     {
-        throw new NotImplementedException();
+        using ApplicationDbContext dbContext = new();
+        return dbContext
+            .Courses
+            .AsNoTracking()
+            .ToList()
+            .Count;
     }
 }

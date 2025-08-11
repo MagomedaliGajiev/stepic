@@ -16,7 +16,7 @@ public class UsersProcessing()
 
         var newUser = new User
         {
-            full_name = userName
+            FullName = userName
         };
 
         bool isAdditionSuccessful = ServiceProvider.usersService.Add(newUser);
@@ -24,7 +24,7 @@ public class UsersProcessing()
         if (isAdditionSuccessful)
         {
             Console.ForegroundColor = ConsoleColor.Green;
-            Console.WriteLine($"Пользователь '{newUser.full_name}' успешно добавлен.\n");
+            Console.WriteLine($"Пользователь '{newUser.FullName}' успешно добавлен.\n");
             Console.ResetColor();
             return newUser;
         }
@@ -51,7 +51,7 @@ public class UsersProcessing()
         if (user != null)
         {
             Console.ForegroundColor = ConsoleColor.Green;
-            Console.WriteLine($"Пользователь '{user.full_name}' успешно вошел.\n");
+            Console.WriteLine($"Пользователь '{user.FullName}' успешно вошел.\n");
             Console.ResetColor();
             return user;
         }
