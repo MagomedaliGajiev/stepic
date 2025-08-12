@@ -84,14 +84,17 @@ public bool Add(User user)
         return reader.Read()
             ? new User
             {
-                full_name = reader.GetString("full_name"),
-                details = reader.IsDBNull("details") ? null : reader.GetString("details"),
-                join_date = reader.GetDateTime("join_date"),
-                avatar = reader.IsDBNull("avatar") ? null : reader.GetString("avatar"),
-                is_active = reader.GetBoolean("is_active"),
-                knowledge = reader.GetInt32("knowledge"),
-                reputation = reader.GetInt32("reputation"),
-                followers_count = reader.GetInt32("followers_count")
+                FullName = reader.GetString("full_name"),
+                Details = reader.IsDBNull("details") ? null : reader.GetString("details"),
+                JoinDate = reader.GetDateTime("join_date"),
+                Avatar = reader.IsDBNull("avatar") ? null : reader.GetString("avatar"),
+                IsActive = reader.GetBoolean("is_active"),
+                Knowledge = reader.GetInt32("knowledge"),
+                Reputation = reader.GetInt32("reputation"),
+                FollowersCount = reader.GetInt32("followers_count"),
+                DaysWithoutBreak = reader.GetInt32("days_without_break"),
+                DaysWithoutBreakMax = reader.GetInt32("days_without_break_max"),
+                SolvedTasks = reader.GetInt32("solved_tasks")
             }
             : null;
     }
