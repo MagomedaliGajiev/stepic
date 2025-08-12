@@ -6,9 +6,9 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-builder.Services.AddTransient<CertificatesService>();
-builder.Services.AddTransient<CommentsService>();
-builder.Services.AddTransient<CoursesService>();
+builder.Services.AddTransient<ICertificatesService, stepic.Services.EF.CertificatesService>();
+builder.Services.AddTransient<ICommentsService, stepic.Services.EF.CommentsService>();
+builder.Services.AddTransient<ICoursesService, stepic.Services.EF.CoursesService>();
 builder.Services.AddTransient<IUsersService, stepic.Services.EF.UsersService>();
 
 var app = builder.Build();

@@ -7,6 +7,10 @@ public class ApplicationDbContext : DbContext
     public DbSet<User> Users { get; set; }
     public DbSet<Course> Courses { get; set; }
     public DbSet<Certificate> Certificates { get; set; }
+    public DbSet<UserCourse> UserCourses { get; set; }
+    public DbSet<Comment> Comments { get; set; }
+    public DbSet<CourseReview> CourseReviews { get; set; }
+
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {

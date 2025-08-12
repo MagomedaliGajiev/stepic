@@ -29,7 +29,6 @@ public class Comment
         [Column("abuse_count")]
         public int AbuseCount { get; set; }
 
-
         public Step Step { get; set; }
         public Comment ReplyComment { get; set; }
         public List<Comment> ReplyComments { get; set; }

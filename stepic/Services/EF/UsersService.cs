@@ -63,6 +63,31 @@ public class UsersService : IUsersService
 
     public DataSet GetUserSocialInfo(string userName)
     {
-        throw new NotImplementedException();
+        using ApplicationDbContext dbContext = new ();
+        var socialInfos = dbContext.Users
+            .Where(u => u.FullName == userName)
+            .AsNoTracking()
+            .SelectMany(u => u.UserSocialProviders)
+            .Select(usp => new
+            {
+                ProviderName = usp.SocialProvider.Name,
+                usp.ConnectUrl
+            })
+            .OrderBy(x => x.ProviderName)
+            .ToList();
+
+        var dataTable = new DataTable("UserSocialInfo");
+        dataTable.Columns.Add("name", typeof(string));
+        dataTable.Columns.Add("connect_url", typeof(string));
+
+        foreach (var item in socialInfos)
+        {
+            dataTable.Rows.Add(item.ProviderName, item.ConnectUrl);
+        }
+
+        var dataSet = new DataSet();
+        dataSet.Tables.Add(dataTable);
+
+        return dataSet;
     }
 }

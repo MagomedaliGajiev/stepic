@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using stepic.Models;
+using stepic.Services;
 using stepic.Services.ADO.NET;
 using System.Data;
 
@@ -9,9 +10,9 @@ namespace stepic_webApi.Controllers
     [Route("[controller]")]
     public class UsersController : ControllerBase
     {
-        private readonly UsersService _usersService;
+        private readonly IUsersService _usersService;
 
-        public UsersController(UsersService usersService)
+        public UsersController(IUsersService usersService)
         {
             _usersService = usersService;
         }
