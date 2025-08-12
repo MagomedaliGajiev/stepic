@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace stepic.Models;
 
-[PrimaryKey(nameof(UserId), nameof(SocialProvider))]
+[PrimaryKey(nameof(UserId), nameof(SocialProviderId))]
 [Table("user_social_providers")]
 public class UserSocialProvider
 {

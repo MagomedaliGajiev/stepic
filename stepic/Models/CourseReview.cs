@@ -1,5 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Metadata.Internal;
+﻿using Microsoft.EntityFrameworkCore.Metadata.Internal;
+using Microsoft.EntityFrameworkCore;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace stepic.Models;
@@ -32,7 +32,8 @@ public class CourseReview
     [Column("abuse_count")]
     public int AbuseCount { get; set; }
 
+
     public Course Course { get; set; }
     public User User { get; set; }
-    public Comment? Comment { get; set; }
+    public Comment Comment { get; set; }
 }

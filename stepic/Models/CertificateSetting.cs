@@ -17,13 +17,13 @@ public class CertificateSetting
     public string? SignatureUrl { get; set; }
 
     [Column("is_certificate_auto_issued")]
-    public bool? IsCertificateAutoIssued { get; set; }
+    public bool IsCertificateAutoIssued { get; set; }
 
     [Column("regular_threshold")]
-    public int? RegularThreshold { get; set; }
+    public int RegularThreshold { get; set; }
 
     [Column("excellent_threshold")]
-    public int? ExcellentThreshold { get; set; }
+    public int ExcellentThreshold { get; set; }
 
     public Course Course { get; set; }
 }

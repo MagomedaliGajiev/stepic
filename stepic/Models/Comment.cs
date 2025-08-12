@@ -3,7 +3,7 @@
 namespace stepic.Models
 {
     [Table("comments")]
-    public class Comment
+public class Comment
     {
         [Column("id")]
         public int Id { get; set; }

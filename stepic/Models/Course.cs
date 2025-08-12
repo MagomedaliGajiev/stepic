@@ -27,5 +27,9 @@ public class Course
 
 
     public CertificateSetting CertificateSetting { get; set; }
+    public List<UserCourse> UserCourses { get; set; }
+    public List<CourseAuthor> CourseAuthors { get; set; }
+    public List<Certificate> Certificates { get; set; }
     public List<Unit> Units { get; set; }
+    public List<CourseReview> CourseReviews { get; set; }
 }
