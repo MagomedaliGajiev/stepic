@@ -2,11 +2,11 @@
 using stepic.Services;
 using System.Data;
 
-namespace stepikTest;
+namespace stepik_test;
 
 public class UsersServiceTests
 {
-    private readonly IUsersService _usersService = new stepic.Services.EF.UsersService();
+    private readonly IUsersService _usersService = ServiceProvider.usersService;
 
     [Fact]
     public void Add_ShouldReturnTrue_WhenUserIsAdded()
@@ -34,7 +34,7 @@ public class UsersServiceTests
         Assert.NotNull(addedUser);
         Assert.Equal(newUser.FullName, addedUser.FullName);
         Assert.Equal(newUser.Details, addedUser.Details);
-        Assert.Equal(newUser.JoinDate.Date, addedUser.JoinDate);
+        Assert.Equal(newUser.JoinDate.Date, addedUser.JoinDate.Date);
         Assert.Equal(newUser.Avatar, addedUser.Avatar);
         Assert.Equal(newUser.IsActive, addedUser.IsActive);
         Assert.Equal(newUser.Knowledge, addedUser.Knowledge);
