@@ -1,33 +1,24 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using stepic.Services.ADO.NET;
+using stepic.Services;
 using System.Data;
 
-namespace stepic_webApi.Controllers
+namespace stepic_webApi.Controllers;
+
+[ApiController]
+[Route("[controller]")]
+public class CertificatesController(ICertificatesService _certificatesService) : ControllerBase
 {
-    [ApiController]
-    [Route("[controller]")]
-    public class CertificatesController : ControllerBase
+    [HttpGet("GetUserCertificates")]
+    public IActionResult GetUserCertificates(string fullName)
     {
-        private readonly CertificatesService _certificatesService;
-
-        public CertificatesController()
+        var dataSet = _certificatesService.Get(fullName);
+        var certificates = dataSet.Tables[0].Rows.Cast<DataRow>().Select(row => new
         {
-            _certificatesService = new CertificatesService();
-        }
+            CourseTitle = row["title"].ToString(),
+            IssueDate = Convert.ToDateTime(row["issue_date"]),
+            Grade = Convert.ToInt32(row["grade"])
+        }).ToList();
 
-        [HttpGet("GetUserCertificates")]
-        public IActionResult GetUserCertificates(string fullName)
-        {
-            var dataSet = _certificatesService.Get(fullName);
-            var certificates = dataSet.Tables[0].Rows.Cast<DataRow>().Select(row => new
-            {
-                CourseTitle = row["title"].ToString(),
-                IssueDate = Convert.ToDateTime(row["issue_date"]),
-                Grade = Convert.ToInt32(row["grade"])
-            }).ToList();
-
-            return (certificates != null && certificates.Any()) ? Ok(certificates) 
-                : NotFound("У пользователя не найдено курсов");
-        }
+        return (certificates != null && certificates.Any()) ? Ok(certificates) : NotFound("У пользователя не найдено курсов");
     }
 }

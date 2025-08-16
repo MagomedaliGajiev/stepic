@@ -7,8 +7,10 @@ public class SocialProvider
 {
     [Column("id")]
     public int Id { get; set; }
+
     [Column("name")]
     public string Name { get; set; }
+
     [Column("logo_url")]
     public string LogoUrl { get; set; }
 

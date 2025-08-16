@@ -1,6 +1,5 @@
 ﻿using stepic.Models;
 using stepic.Services;
-using stepic.Services.ADO.NET;
 using System.Data;
 
 namespace stepic;

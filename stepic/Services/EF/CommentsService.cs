@@ -6,6 +6,27 @@ namespace stepic.Services.EF;
 public class CommentsService : ICommentsService
 {
     /// <summary>
+    /// Получение всех комментариев к курсу
+    /// </summary>
+    /// <param name="id">id курса</param>
+    /// <returns>Список комментариев</returns>  
+    public List<Comment> Get(int id)
+    {
+        using ApplicationDbContext dbContext = new();
+
+        var comments = dbContext.Comments
+            .AsNoTracking()
+            .Where(c =>
+                c.ReplyCommentId == null &&
+                c.Step.Lesson.UnitLessons.Any(ul => ul.Unit.CourseId == id)
+            )
+            .OrderByDescending(c => c.Time)
+            .ToList();
+
+        return comments;
+    }
+
+    /// <summary>
     /// Удаление комментария пользователя
     /// </summary>
     /// <param name="id">id комментария</param>
@@ -36,26 +57,5 @@ public class CommentsService : ICommentsService
         {
             return false;
         }
-    }
-
-    /// <summary>
-    /// Получение всех комментариев к курсу
-    /// </summary>
-    /// <param name="id">id курса</param>
-    /// <returns>Список комментариев</returns>  
-    public List<Comment> Get(int id)
-    {
-        using ApplicationDbContext dbContext = new();
-
-        var comments = dbContext.Comments
-            .AsNoTracking()
-            .Where(c =>
-                c.ReplyCommentId == null &&
-                c.Step.Lesson.UnitLessons.Any(ul => ul.Unit.CourseId == id)
-            )
-            .OrderByDescending(c => c.Time)
-            .ToList();
-
-        return comments;
     }
 }

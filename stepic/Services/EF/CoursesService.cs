@@ -14,13 +14,15 @@ public class CoursesService : ICoursesService
     {
         using ApplicationDbContext dbContext = new();
 
-        return dbContext.UserCourses
+        var courses = dbContext.UserCourses
             .AsNoTracking()
             .Include(uc => uc.Course)
             .Where(uc => uc.User.FullName == fullName && uc.User.IsActive)
             .OrderByDescending(uc => uc.LastViewed)
             .Select(uc => uc.Course)
             .ToList();
+
+        return courses;
     }
 
     /// <summary>
@@ -29,10 +31,8 @@ public class CoursesService : ICoursesService
     public int GetTotalCount()
     {
         using ApplicationDbContext dbContext = new();
-        return dbContext
-            .Courses
+        return dbContext.Courses
             .AsNoTracking()
-            .ToList()
-            .Count;
+            .Count();
     }
 }

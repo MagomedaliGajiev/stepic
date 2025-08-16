@@ -10,6 +10,7 @@ public class UnitLesson
 {
     [Column("unit_id")]
     public int UnitId { get; set; }
+
     [Column("lesson_id")]
     public int LessonId { get; set; }
 

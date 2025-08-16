@@ -16,7 +16,9 @@ public class UsersProcessing()
 
         var newUser = new User
         {
-            FullName = userName
+            FullName = userName,
+            JoinDate = DateTime.Now,
+            IsActive = true
         };
 
         bool isAdditionSuccessful = ServiceProvider.usersService.Add(newUser);

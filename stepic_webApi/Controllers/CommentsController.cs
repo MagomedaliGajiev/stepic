@@ -1,32 +1,24 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using stepic.Services.ADO.NET;
+using stepic.Services;
 
-namespace stepic_webApi.Controllers
+namespace stepic_webApi.Controllers;
+
+
+[ApiController]
+[Route("[controller]")]
+public class CommentsController(ICommentsService _commentsService) : ControllerBase
 {
-
-    [ApiController]
-    [Route("[controller]")]
-    public class CommentsController : ControllerBase
+    [HttpGet("GetCourseComments")]
+    public IActionResult GetCourseComments(int id)
     {
-        private readonly CommentsService _commentsService;
+        var comments = _commentsService.Get(id);
+        return (comments != null && comments.Any()) ? Ok(comments) : NotFound("Комментариев не найдено");
+    }
 
-        public CommentsController()
-        {
-            _commentsService = new CommentsService();
-        }
-
-        [HttpGet("GetCourseComments")]
-        public IActionResult GetCourseComments(int id)
-        {
-            var comments = _commentsService.Get(id);
-            return (comments != null && comments.Any()) ? Ok(comments) : NotFound("Комментариев не найдено");
-        }
-
-        [HttpDelete("DeleteComment")]
-        public IActionResult DeleteComment(int id)
-        {
-            var result = _commentsService.Delete(id);
-            return result ? Ok("Комментарий удален") : BadRequest("Не удалось удалить комментарий.");
-        }
+    [HttpDelete("DeleteComment")]
+    public IActionResult DeleteComment(int id)
+    {
+        var result = _commentsService.Delete(id);
+        return result ? Ok("Комментарий удален") : BadRequest("Не удалось удалить комментарий.");
     }
 }

@@ -19,25 +19,20 @@ public class CertificatesService : ICertificatesService
             .Include(c => c.Course)
             .Where(c => c.User.FullName == fullName)
             .OrderByDescending(c => c.IssueDate)
-            .Select(c => new
-            {
-                c.Course.Title,
-                c.IssueDate,
-                c.Grade
-            })
             .ToList();
 
-        var dataTable = new DataTable("Certificates");
+        var dataSet = new DataSet();
+
+        var dataTable = new DataTable("certificates");
         dataTable.Columns.Add("title", typeof(string));
         dataTable.Columns.Add("issue_date", typeof(DateTime));
-        dataTable.Columns.Add("grade", typeof (int));
+        dataTable.Columns.Add("grade", typeof(int));
 
         foreach (var certificate in certificates)
         {
-            dataTable.Rows.Add(certificate.Title, certificate.IssueDate, certificate.Grade);
+            dataTable.Rows.Add(certificate.Course.Title, certificate.IssueDate, certificate.Grade);
         }
 
-        var dataSet = new DataSet();
         dataSet.Tables.Add(dataTable);
         return dataSet;
     }
