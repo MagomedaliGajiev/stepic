@@ -1,32 +1,21 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
+﻿namespace stepic.Models;
 
-namespace stepic.Models;
-
-[Table("comments")]
 public class Comment
 {
-    [Column("id")]
     public int Id { get; set; }
 
-    [Column("step_id")]
     public int? StepId { get; set; }
 
-    [Column("reply_comment_id")]
     public int? ReplyCommentId { get; set; }
 
-    [Column("user_id")]
     public int UserId { get; set; }
 
-    [Column("time")]
     public DateTime Time { get; set; }
 
-    [Column("text")]
     public string Text { get; set; }
 
-    [Column("epic_count")]
     public int EpicCount { get; set; }
 
-    [Column("abuse_count")]
     public int AbuseCount { get; set; }
 
 
