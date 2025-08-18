@@ -1,6 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
-using stepic.Data.Configurations;
 using stepic.Models;
 using System.Reflection;
 
