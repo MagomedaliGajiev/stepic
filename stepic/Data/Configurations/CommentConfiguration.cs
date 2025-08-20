@@ -40,8 +40,8 @@ public class CommentConfiguration : IEntityTypeConfiguration<Comment>
             .WithMany(s => s.Comments)
             .HasForeignKey(c => c.StepId);
 
-        builder.HasOne(c => c.Step)
-            .WithMany(c => c.Comments)
+        builder.HasOne(c => c.ReplyComment)
+            .WithMany(c => c.ReplyComments)
             .HasForeignKey(c => c.ReplyCommentId);
 
         builder.HasOne(c => c.User)

@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
-using stepic.Data.Configurations;
 using stepic.Models;
+using stepik.Data.Configurations;
 using System.Reflection;
 
 public class ApplicationDbContext : DbContext
